@@ -6,15 +6,17 @@ from .models import User, UserProfile
 def post_save_create_profile_receiver(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+        print("User profile is created.")
     else:
         try:
             # Updation of UserProfile
             profile = UserProfile.objects.get(user=instance)
-            profile.save()
+            profile.save
+            print(f"{profile.user } is saved")
         except:
         # UserProfile does not already exist for the User already created before.
             UserProfile.objects.create(user=instance)
-
+            print("UserProfile does not already exist but user already exit, Userprofile is created.")
 @receiver(pre_save,sender=User)
 def pre_save_profile_receiver(sender,instance, **kwargs):
-    print(instance.username, "This user is created.")
+    pass
